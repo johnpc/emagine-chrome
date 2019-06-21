@@ -1,0 +1,19 @@
+{
+  "manifest_version": 2,
+  "name": "Emagine Saline Movie Scores",
+  "version": "0.1",
+  "background": {
+    "scripts": ["background.js"]
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "http://www.emagine-entertainment.com/showtimes/saline/"
+      ],
+      "js": ["jquery-3.4.1.js", "content.js"]
+    }
+  ],
+  "browser_action": {
+    "default_icon": "icon.png"
+  }
+}
