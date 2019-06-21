@@ -1,17 +1,16 @@
-let api_key = "{{YOUR_API_KEY}}";
+let api_key = "a32f84ec";
 
 function buildIMDbUrl(imdb_id) {
   return "https://www.imdb.com/title/" + imdb_id;
 }
 
 function buildRottenTomatoesUrl(movie_name) {
-	let rotten_tomatoes_id =
-    movie_name
-      .replace(/[^a-z0-9]+/gi, " ")
-      .toLowerCase()
-      .split(" ")
-      .join("_");
-  console.log("buildRottenTomatoesUrl: " + movie_name);
+  let rotten_tomatoes_id = movie_name
+    .replace(/[^a-z0-9]+/gi, " ")
+    .toLowerCase()
+    .split(" ")
+    .join("_");
+
   return "https://www.rottentomatoes.com/m/" + rotten_tomatoes_id;
 }
 
@@ -21,6 +20,7 @@ function buildMetacriticUrl(movie_name) {
     .toLowerCase()
     .split(" ")
     .join("-");
+
   return "https://www.metacritic.com/movie/" + metacritic_id;
 }
 
@@ -36,6 +36,7 @@ function getIMDbContent(data) {
       content = content + ": " + element.Value + "</a>";
     }
   });
+
   content = content + "</a>";
   return content;
 }
@@ -53,6 +54,7 @@ function getRottenTomatoesContent(data, movie_name) {
       content = content + ": " + element.Value;
     }
   });
+
   content = content + "</a>";
   return content;
 }
@@ -73,12 +75,14 @@ function getMetacriticContent(data, movie_name) {
   return content;
 }
 
-function getMovieName(obj)
-{
+function getMovieName(obj) {
   // Remove parens (ie. "Toy Story 4 (3D EMAX)" should just be "Toy Story 4")
   let raw_movie_name = $(obj).text();
   let index = raw_movie_name.indexOf("(");
-  return raw_movie_name.substring(0, index != -1 ? (index - 1) : raw_movie_name.length);
+  return raw_movie_name.substring(
+    0,
+    index != -1 ? index - 1 : raw_movie_name.length
+  );
 }
 
 $(document).ready(function() {
@@ -89,11 +93,13 @@ $(document).ready(function() {
       movie_name +
       "&y=" +
       new Date().getFullYear() +
-      "&apikey=" + api_key;
+      "&apikey=" +
+      api_key;
 
     $.get(omdbapi, function(data) {
       obj.innerHTML =
-        obj.innerHTML + "<br>" +
+        obj.innerHTML +
+        "<br>" +
         getIMDbContent(data) +
         getRottenTomatoesContent(data, movie_name) +
         getMetacriticContent(data, movie_name);
