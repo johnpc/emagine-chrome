@@ -1,4 +1,4 @@
-let api_key = "a32f84ec";
+let api_key = "{{YOUR_API_KEY}}";
 
 function buildIMDbUrl(imdb_id) {
   return "https://www.imdb.com/title/" + imdb_id;
@@ -101,8 +101,8 @@ $(document).ready(function() {
         obj.innerHTML +
         "<br>" +
         getIMDbContent(data) +
-        getRottenTomatoesContent(data, movie_name) +
-        getMetacriticContent(data, movie_name);
+        getMetacriticContent(data, movie_name) +
+        getRottenTomatoesContent(data, movie_name);
     });
   });
 });
