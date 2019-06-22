@@ -8,7 +8,8 @@
   "content_scripts": [
     {
       "matches": [
-        "http://www.emagine-entertainment.com/showtimes/saline/"
+        "http://www.emagine-entertainment.com/showtimes/*/",
+        "http://www.emagine-entertainment.com/showtimes/*/*"
       ],
       "js": ["jquery-3.4.1.js", "content.js"]
     }
