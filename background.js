@@ -1,5 +1,5 @@
 chrome.browserAction.onClicked.addListener(function(activeTab)
 {
-    var newURL = "http://www.emagine-entertainment.com/showtimes/saline/";
+    var newURL = "https://www.emagine-entertainment.com/theatres/emagine-saline/";
     chrome.tabs.create({ url: newURL });
 });

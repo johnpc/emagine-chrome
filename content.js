@@ -1,5 +1,4 @@
-let api_key = "{{YOUR_API_KEY}}";
-
+let api_key = "{{YOUR_API_KEY_HERE}}";
 function buildIMDbUrl(imdb_id) {
   return "https://www.imdb.com/title/" + imdb_id;
 }
@@ -75,9 +74,8 @@ function getMetacriticContent(data, movie_name) {
   return content;
 }
 
-function getMovieName(obj) {
+function getMovieName(raw_movie_name) {
   // Remove parens (ie. "Toy Story 4 (3D EMAX)" should just be "Toy Story 4")
-  let raw_movie_name = $(obj).text();
   let index = raw_movie_name.indexOf("(");
   return raw_movie_name.substring(
     0,
@@ -86,10 +84,15 @@ function getMovieName(obj) {
 }
 
 $(document).ready(function() {
-  $(".movie-name").each(function(i, obj) {
-    let movie_name = getMovieName(obj);
-    let omdbapi =
-      "http://www.omdbapi.com/?t=" +
+  document.getElementsByClassName('js-showtimes')[0].click();
+  setTimeout(() => {
+    console.log('hi');
+    const movieCount = $("#js-ShowtimesModal > div > div.showtimes.page-content.page-content--short > div > div").length;
+    console.log("movieCount", movieCount);
+    for (let i = 0; i < movieCount; i++){
+      const movie_name = getMovieName($("#js-ShowtimesModal > div > div.showtimes.page-content.page-content--short > div > div")[i].children[0].children[0].children[1].innerText);
+      let omdbapi =
+      "https://www.omdbapi.com/?t=" +
       movie_name +
       "&y=" +
       new Date().getFullYear() +
@@ -97,6 +100,8 @@ $(document).ready(function() {
       api_key;
 
     $.get(omdbapi, function(data) {
+      const obj = $("#js-ShowtimesModal > div > div.showtimes.page-content.page-content--short > div > div")[i].children[0].children[0].children[1];
+      console.log(data);
       obj.innerHTML =
         obj.innerHTML +
         "<br>" +
@@ -104,5 +109,6 @@ $(document).ready(function() {
         getMetacriticContent(data, movie_name) +
         getRottenTomatoesContent(data, movie_name);
     });
-  });
+    }
+  }, 1000)
 });
